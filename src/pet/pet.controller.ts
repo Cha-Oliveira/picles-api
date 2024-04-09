@@ -1,21 +1,21 @@
-import { Body, Controller, Inject, Post } from "@nestjs/common";
-import CreatePetControllerInput from "./dtos/create.pet.controller.input";
-import petTokens from "./pet.tokens";
-import { IUseCase } from "src/domain/iusecase.interface";
-import CreatePetControllerOutput from "./dtos/Create.Pet.controller.output";
-import CreatePetUseCaseInput from "./usecases/dtos/create.pet.usecase.input";
-import CreatePetUseCaseOutput from "./usecases/dtos/create.pet.usecase.output";
-
+import { Body, Controller, Inject, Post } from '@nestjs/common';
+import CreatePetControllerInput from './dtos/create.pet.controller.input';
+import { IUseCase } from 'src/domain/iusecase.interface';
+import CreatePetUseCaseInput from './usecases/dtos/create.pet.usecase.input';
+import PetTokens from './pet.tokens';
+import CreatePetUseCaseOutput from './usecases/dtos/create.pet.usecase.output';
 
 @Controller('pet')
-export class PetController{
+export class PetController {
 
-    /*@Inject(petTokens.CreatPetUseCase)
-    private readonly createPetUseCase: IUseCase<CreatePetUseCaseInput, CreatePetUseCaseOutput>
+	@Inject(PetTokens.createPetUseCase)
+	private readonly createPetUseCase: IUseCase<CreatePetUseCaseInput, CreatePetUseCaseOutput>
 
-    @Post()
-    async createPet(@Body() Input: CreatePetControllerInput){
-        const usecase = new CreatePetControllerInput({...Input})
-        return await this.createPetUseCase.run(usecaseinput)
-    }*/
+	@Post()
+	async createPet(@Body() input: CreatePetControllerInput): Promise<CreatePetUseCaseOutput>{
+		const useCaseInput = new CreatePetUseCaseInput({...input})
+		return await this.createPetUseCase.run(useCaseInput)
+	}
+
+
 }

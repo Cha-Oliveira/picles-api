@@ -20,8 +20,8 @@ implements IUseCase<null, GetShelterDetailsUseCaseOutput>
         shelterEmail: shelter.email,
         shelterPhone: shelter.phone,
         shelterWhatsApp: shelter.whatsApp,
-        createdAt: shelter.createdAT,
-        updatedAt: shelter.updateAt,
+        createdAt: shelter.createdAt,
+        updatedAt: shelter.updatedAt,
        });
     }    
 }

@@ -1,13 +1,24 @@
-import { IsEmail, IsNotEmpty, IsNumberString, IsString, Length, isString } from "class-validator"
+import { IsNotEmpty, IsString, MaxLength } from "class-validator";
 
-export default class CreatePetUseCaseInput {
-    name: string;
-    type: string;
-    size: string;
-    gender: string;
-    bios: string;
+export default class CreatePetControllerInput{
+	@IsString()
+	@IsNotEmpty()
+	name: string;
 
-    constructor(data: Partial<CreatePetUseCaseInput>){
-        Object.assign(this, data);
-    }
+	@IsString()
+	@IsNotEmpty()
+	type: string;
+
+	@IsString()
+	@IsNotEmpty()
+	size: string;
+
+	@IsString()
+	@IsNotEmpty()
+	gender: string;
+
+	@IsString()
+	@IsNotEmpty()
+	@MaxLength(1024)
+	bio: string;
 }

@@ -1,3 +1,3 @@
-export default class petTokens {
-     static createPetUseCase = 'createPetUseCase';
+export default class PetTokens {
+	static createPetUseCase = 'createPetUseCase';
 }

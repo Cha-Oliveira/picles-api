@@ -1,24 +1,11 @@
-import { IsNotEmpty, IsString, MaxLength } from "class-validator";
-
 export default class CreatePetUseCaseInput{
-  @IsString()
-  @IsNotEmpty()
-  name: string;
+	name: string;
+	type: string;
+	size: string;
+	gender: string;
+	bio: string;
 
-  @IsString()
-  @IsNotEmpty()
-  type: string;
-
-  @IsString()
-  @IsNotEmpty()
-  size: string;
-
-  @IsString()
-  @IsNotEmpty()
-  gender: string;
-
-  @IsString()
-  @IsNotEmpty()
-  @MaxLength(1024)
-  bio: string;
+	constructor(data: Partial<CreatePetUseCaseInput>){
+		Object.assign(this, data);
+	}
 }
