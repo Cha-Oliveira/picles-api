@@ -22,7 +22,7 @@ import UpdateShelterDetailsUseCase from './usecases/update.shelter.datails.useca
     {
       provide: ShelterToken.shelterRepository,
       useClass: ShelterRepository,
-    }
+    },
     {
       provide: ShelterToken.updateShelterDetailsUseCase,
       useClass: UpdateShelterDetailsUseCase
