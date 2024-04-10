@@ -1,11 +1,31 @@
 import { IUseCase } from "src/domain/iusecase.interface";
 import CreatePetUseCaseInput from "./dtos/create.pet.usecase.input";
 import CreatePetUseCaseOutput from "./dtos/create.pet.usecase.output";
-import { Injectable } from "@nestjs/common";
+import { Inject, Injectable } from "@nestjs/common";
+import PetRepository from "../pet.repository";
+import PetTokens from "../pet.tokens";
 
 @Injectable()
-export default class CreatePetUseCase implements IUseCase<CreatePetUseCaseInput, CreatePetUseCaseOutput>{
-	run(input: CreatePetUseCaseInput): Promise<CreatePetUseCaseOutput>{
-		throw new Error("Method not implemented");
+export default class CreatePetUseCase implements IUseCase<CreatePetUseCaseInput,
+ CreatePetUseCaseOutput>{
+
+constructor(
+	@Inject(PetTokens.petRepository)
+	private readonly petRepository: PetRepository
+){}
+
+	async run(input: CreatePetUseCaseInput): Promise<CreatePetUseCaseOutput>{
+	const newPet = await this.petRepository.create(input)
+	return new CreatePetUseCaseOutput({
+		id: newPet._id,
+		name: newPet.name,
+		type: newPet.type,
+		size: newPet.size,
+		gender:  newPet.gender,
+		bio: newPet.bio,
+		photo: newPet.photo,
+		createdAt: newPet.createdAt,
+		updatedAt: newPet.createdAt
+	})
 	}
 }
