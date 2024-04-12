@@ -25,7 +25,7 @@ constructor(
 		bio: newPet.bio,
 		photo: newPet.photo,
 		createdAt: newPet.createdAt,
-		updatedAt: newPet.createdAt
+		updatedAt: newPet.updatedAt
 	})
 	}
 }
