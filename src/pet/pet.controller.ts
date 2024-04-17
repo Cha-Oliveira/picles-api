@@ -4,8 +4,8 @@ import { IUseCase } from 'src/domain/iusecase.interface';
 import CreatePetUseCaseInput from './usecases/dtos/create.pet.usecase.input';
 import PetTokens from './pet.tokens';
 import CreatePetUseCaseOutput from './usecases/dtos/create.pet.usecase.output';
-import GetPetByIdUsecaseInput from './dtos/get.pet.by.id.usecase.input';
-import GetPetByIdUsecaseOutput from './dtos/get.pet.by.id.usecase.output';
+import GetPetByIdUsecaseInput from './usecases/dtos/get.pet.by.id.usecase.input';
+import GetPetByIdUsecaseOutput from './usecases/dtos/get.pet.by.id.usecase.output';
 import { json } from 'stream/consumers';
 import UpdatePetControllerInput from './dtos/update.pet.controller.input';
 import UpdatePetByIdUseCaseInput from './usecases/dtos/update.pet.by.id.usecase.input';
@@ -20,6 +20,9 @@ import UpdadePetPhotoByIdUseCaseInput from './usecases/dtos/update.pet.photo.by.
 import { errorMonitor } from 'events';
 import GetPetUseCaseInput from './usecases/dtos/get.pets.usecase.input';
 import GetPetUseCaseOutput from './usecases/dtos/get.pets.usecase.output';
+import GetPetsUseCaseInput from './usecases/dtos/get.pets.usecase.input';
+import GetPetsUseCaseOutput from './usecases/dtos/get.pets.usecase.output';
+import { ApiBody, ApiResponse } from '@nestjs/swagger';
 
 @Controller('pet')
 export class PetController {
@@ -36,13 +39,15 @@ export class PetController {
 	@Inject(PetTokens.deletePetByIdUseCase)
 	private readonly deletePetByIdUseCase: IUseCase<DeletePetByIdUseCaseInput, DeletePetByIdUseCaseOutput>
 	
-	@Inject(PetTokens.UpdatePetPhotoByIdUseCase)
+	@Inject(PetTokens.updatePetPhotoByIdUseCase)
 	private readonly UpdatePetPhotoByIdUseCase: IUseCase<UpdadePetPhotoByIdUseCaseInput, UpdatePetByIdUseCaseOutput>
 
-	@Inject(PetTokens.GetPetsUseCase)
-	private readonly getPetsUseCase: IUseCase<GetPetByIdUsecaseInput, GetPetUseCaseOutput>
+	@Inject(PetTokens.getPetsUseCase)
+	private readonly getPetsUseCase: IUseCase<GetPetsUseCaseInput, GetPetsUseCaseOutput>
 
 	@Post()
+    @ApiBody({ type: [CreatePetControllerInput] })
+    @ApiResponse({ type: [CreatePetUseCaseOutput] })
 	async createPet(@Body() input: CreatePetControllerInput): Promise<CreatePetUseCaseOutput>{
 		const useCaseInput = new CreatePetUseCaseInput({...input})
 		return await this.createPetUseCase.run(useCaseInput)
@@ -55,7 +60,7 @@ export class PetController {
 		@Query('gender') gender?: string,
 		@Query('page') page?: string,
 		@Query('itemsPerPage') itemsPerPage?: string,
-	): Promise<GetPetByIdUsecaseOutput>{
+	): Promise<GetPetUseCaseOutput>{
 		const FIRST_PAGE = 1
 		const DEFAULT_ITENS_PER_PAGE = 10
 		const useCaseInput = new GetPetUseCaseInput({

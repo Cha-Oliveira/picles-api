@@ -1,6 +1,6 @@
 import { IUseCase } from "src/domain/iusecase.interface";
-import GetPetByIdUsecaseInput from "../dtos/get.pet.by.id.usecase.input";
-import GetPetByIdUsecaseOutput from "../dtos/get.pet.by.id.usecase.output";
+import GetPetByIdUsecaseInput from "./dtos/get.pet.by.id.usecase.input";
+import GetPetByIdUsecaseOutput from "./dtos/get.pet.by.id.usecase.output";
 import { constrainedMemory } from "process";
 import { Inject, Injectable } from "@nestjs/common";
 import PetTokens from "../pet.tokens";
